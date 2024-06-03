@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f5a7701d2b844dfd9e1ac5336774e5d7" Name="Diagram1">
+        <EntityTypeShape EntityType="school_scheduleModel.Attendence" Width="1.5" PointX="7.5" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="school_scheduleModel.Auth" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="school_scheduleModel.Lesson" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="school_scheduleModel.Schedule" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="school_scheduleModel.Student" Width="1.5" PointX="5.25" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="school_scheduleModel.Subject" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="school_scheduleModel.Teacher" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <AssociationConnector Association="school_scheduleModel.FK__Attendenc__lesso__4D94879B" ManuallyRouted="false" />
+        <AssociationConnector Association="school_scheduleModel.FK__Attendenc__Stude__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="school_scheduleModel.FK__Lesson__SubjectI__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="school_scheduleModel.FK_Lesson_Schedule" ManuallyRouted="false" />
+        <AssociationConnector Association="school_scheduleModel.FK__Subject__Teacher__3B75D760" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

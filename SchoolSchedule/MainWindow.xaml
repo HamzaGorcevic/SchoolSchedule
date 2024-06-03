@@ -1,0 +1,75 @@
+﻿<Window x:Class="SchoolSchedule.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SchoolSchedule"
+        mc:Ignorable="d"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        Title="MainWindow" Height="600" Width="1300"
+        >
+
+    <Window.Resources>
+        <Style  TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Margin" Value="0 0 10 0"/>
+            <Setter Property="Width"  Value="130"/>
+            <Setter Property="Height"  Value="60"/>
+
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Width" Value="170"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="FontSize" Value="21"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="Foreground" Value="DarkSlateGray"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+
+        </Style>
+    </Window.Resources>
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock  VerticalAlignment="Center"  HorizontalAlignment="Center"  FontSize="53"  FontWeight="ExtraBlack" Foreground="SlateGray" FontFamily="Cascadia Code SemiBold">CLASS SCHEDULE</TextBlock>
+        <Border CornerRadius="9" Padding="5" Width="130" Height="45" HorizontalAlignment="Left" Margin="25 0" Background="DarkTurquoise" >
+            <Button x:Name="btnLogin" Content="Login" VerticalAlignment="Center"  HorizontalAlignment="Center" FontSize="20" Background="Transparent" Click="btnLogin_Click"/>
+
+        </Border>
+        <ComboBox x:Name="cbDays" SelectedIndex="0"  SelectionChanged="cbDays_SelectionChanged"  HorizontalAlignment="Right"  Margin="0 0 25 0" FontFamily="Bahnschrift SemiBold" BorderBrush="#FF52DAEB">
+     
+        <ComboBoxItem Content="Week"/>
+
+        <ComboBoxItem Content="Monday"/>
+        <ComboBoxItem Content="Tuesday"/>
+        <ComboBoxItem Content="Wednesday"/>
+        <ComboBoxItem Content="Thursday"/>
+        <ComboBoxItem Content="Friday"/>
+
+        </ComboBox>
+        <Grid x:Name="gridSchedule" Loaded="gridSchedule_Loaded" Grid.Row="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="30*"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+
+
+
+
+    </Grid>
+
+</Window>

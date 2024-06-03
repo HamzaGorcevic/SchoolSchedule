@@ -1,0 +1,15 @@
+﻿<Window x:Class="SchoolSchedule.Views.NavigationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="clr-namespace:SchoolSchedule.Views"
+        Title="Navigation" Height="450" Width="800">
+    <Grid>
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Background="LightGray">
+                <Button Content="Attendances" Click="AttendancesButton_Click" Margin="5" />
+                <Button Content="Attendance Info" Click="AttendanceInfoButton_Click" Margin="5" />
+            </StackPanel>
+            <ContentControl x:Name="ContentArea" />
+        </DockPanel>
+    </Grid>
+</Window>
