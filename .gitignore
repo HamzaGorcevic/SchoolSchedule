@@ -1,0 +1,55 @@
+# User-specific files
+.idea/
+.vs/
+.vscode/
+AppData/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Dd]ist/
+[Dd]eploy/
+[Dd]ebugTest/
+[Dd]eployment/
+[Dd]ebugApp/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+
+# OS generated files
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Build output directories
+bin/
+obj/
+
+# WPF specific (Ignore local/temporary files)
+App.xaml.cs.generated/
+MainWindow.xaml.cs.generated/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*.suo
+*.dbmdl
+
+# Package manager directories
+packages/
+
+# Dependency directories (if using NuGet)
+# .nuget/
+# packages.config can be ignored if you are using PackageReference
+# but not if you're still using packages.config for NuGet
+
+# User settings
+appsettings.json
+local.settings.json

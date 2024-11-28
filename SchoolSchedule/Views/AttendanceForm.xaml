@@ -11,10 +11,10 @@
                   AlternatingRowBackground="LightSkyBlue" AlternationCount="2"
                   Margin="0,0,0,10">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Ime" Binding="{Binding FirstName}" Width="*" />
-                <DataGridTextColumn Header="Prezime" Binding="{Binding LastName}" Width="*" />
-                <DataGridTextColumn Header="Razred" Binding="{Binding Grade}" Width="*" />
-                <DataGridTemplateColumn Header="Prisutan" Width="Auto">
+                <DataGridTextColumn Header="Name" Binding="{Binding FirstName}" Width="*" />
+                <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" Width="*" />
+                <DataGridTextColumn Header="Grade" Binding="{Binding Grade}" Width="*" />
+                <DataGridTemplateColumn Header="Absence" Width="Auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <CheckBox IsChecked="{Binding IsPresent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -40,7 +40,7 @@
             </DataGrid.CellStyle>
         </DataGrid>
 
-        <Button Content="Zabelezi prisustvo" Click="Button_Click" Height="50" Width="200" 
+        <Button Content="Record Attendance" Click="Button_Click" Height="50" Width="200" 
                 VerticalAlignment="Bottom" HorizontalAlignment="Center" 
                 Background="LightSkyBlue" Foreground="White" FontSize="16" 
                 BorderBrush="LightSteelBlue" BorderThickness="1" 

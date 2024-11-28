@@ -18,7 +18,6 @@ C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\bin\Debug\EntityFramew
 C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\bin\Debug\EntityFramework.xml
 C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\obj\Debug\SchoolSchedule_Content.g.cs
-C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\obj\Debug\SchoolSchedule.csproj.CopyComplete
 C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\obj\Debug\Views\LessonForm.baml
 C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\obj\Debug\Views\LessonForm.g.cs
 C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\bin\Debug\FontAwesome.WPF.dll
@@ -31,3 +30,4 @@ C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\obj\Debug\Views\Attend
 C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\obj\Debug\Views\NavigationWindow.g.cs
 C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\obj\Debug\Views\AttendenceInfo.baml
 C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\obj\Debug\Views\NavigationWindow.baml
+C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\obj\Debug\SchoolSc.B7D1D8BE.Up2Date

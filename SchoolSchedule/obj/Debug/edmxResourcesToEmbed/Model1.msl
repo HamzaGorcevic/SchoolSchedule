@@ -22,6 +22,10 @@
     <EntitySetMapping Name="Lessons">
       <EntityTypeMapping TypeName="school_scheduleModel.Lesson">
         <MappingFragment StoreEntitySet="Lesson">
+          <ScalarProperty Name="EndTimeMinute" ColumnName="EndTimeMinute" />
+          <ScalarProperty Name="EndTimeHour" ColumnName="EndTimeHour" />
+          <ScalarProperty Name="StartTimeMinute" ColumnName="StartTimeMinute" />
+          <ScalarProperty Name="StartTimeHour" ColumnName="StartTimeHour" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
           <ScalarProperty Name="DayOfWeek" ColumnName="DayOfWeek" />

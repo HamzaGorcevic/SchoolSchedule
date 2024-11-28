@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="school_scheduleModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="school_scheduleModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Attendence">
           <Key>
             <PropertyRef Name="id" />
@@ -31,6 +31,10 @@
           <Property Name="StartTime" Type="time" Precision="7" />
           <Property Name="EndTime" Type="time" Precision="7" />
           <Property Name="ScheduleId" Type="int" />
+          <Property Name="StartTimeHour" Type="int" />
+          <Property Name="StartTimeMinute" Type="int" />
+          <Property Name="EndTimeHour" Type="int" />
+          <Property Name="EndTimeMinute" Type="int" />
         </EntityType>
         <EntityType Name="Schedule">
           <Key>
@@ -154,8 +158,7 @@
             <End Role="Lesson" EntitySet="Lesson" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="school_scheduleModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -190,6 +193,10 @@
           <NavigationProperty Name="Attendences" Relationship="Self.FK__Attendenc__lesso__4D94879B" FromRole="Lesson" ToRole="Attendence" />
           <NavigationProperty Name="Subject" Relationship="Self.FK__Lesson__SubjectI__3E52440B" FromRole="Lesson" ToRole="Subject" />
           <NavigationProperty Name="Schedule" Relationship="Self.FK_Lesson_Schedule" FromRole="Lesson" ToRole="Schedule" />
+          <Property Name="StartTimeHour" Type="Int32" />
+          <Property Name="StartTimeMinute" Type="Int32" />
+          <Property Name="EndTimeHour" Type="Int32" />
+          <Property Name="EndTimeMinute" Type="Int32" />
         </EntityType>
         <EntityType Name="Schedule">
           <Key>
@@ -345,6 +352,10 @@
           <EntitySetMapping Name="Lessons">
             <EntityTypeMapping TypeName="school_scheduleModel.Lesson">
               <MappingFragment StoreEntitySet="Lesson">
+                <ScalarProperty Name="EndTimeMinute" ColumnName="EndTimeMinute" />
+                <ScalarProperty Name="EndTimeHour" ColumnName="EndTimeHour" />
+                <ScalarProperty Name="StartTimeMinute" ColumnName="StartTimeMinute" />
+                <ScalarProperty Name="StartTimeHour" ColumnName="StartTimeHour" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
                 <ScalarProperty Name="DayOfWeek" ColumnName="DayOfWeek" />

@@ -31,6 +31,10 @@
     <NavigationProperty Name="Attendences" Relationship="Self.FK__Attendenc__lesso__4D94879B" FromRole="Lesson" ToRole="Attendence" />
     <NavigationProperty Name="Subject" Relationship="Self.FK__Lesson__SubjectI__3E52440B" FromRole="Lesson" ToRole="Subject" />
     <NavigationProperty Name="Schedule" Relationship="Self.FK_Lesson_Schedule" FromRole="Lesson" ToRole="Schedule" />
+    <Property Name="StartTimeHour" Type="Int32" />
+    <Property Name="StartTimeMinute" Type="Int32" />
+    <Property Name="EndTimeHour" Type="Int32" />
+    <Property Name="EndTimeMinute" Type="Int32" />
   </EntityType>
   <EntityType Name="Schedule">
     <Key>

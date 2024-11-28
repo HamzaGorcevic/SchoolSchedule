@@ -10,11 +10,11 @@
                   AlternatingRowBackground="LightSkyBlue" AlternationCount="2"
                   Margin="0,0,0,10">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Ime" Binding="{Binding FirstName}" Width="*" />
-                <DataGridTextColumn Header="Prezime" Binding="{Binding LastName}" Width="*" />
+                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" Width="*" />
+                <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" Width="*" />
 
-                <DataGridTextColumn Header="Razred" Binding="{Binding Grade}" Width="*" />
-                <DataGridTextColumn Header="Izostanci" Binding="{Binding Absences}" Width="*" />
+                <DataGridTextColumn Header="Grade" Binding="{Binding Grade}" Width="*" />
+                <DataGridTextColumn Header="Absences" Binding="{Binding Absences}" Width="*" />
             </DataGrid.Columns>
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">

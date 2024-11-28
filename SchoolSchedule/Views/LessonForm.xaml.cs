@@ -1,17 +1,25 @@
 ﻿using SchoolSchedule.Services;
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
-namespace SchoolSchedule.Views
-{
+namespace SchoolSchedule.Views { 
+
     public partial class LessonForm : Window, INotifyPropertyChanged
     {
         private Lesson lesson;
         private school_scheduleEntities context = new school_scheduleEntities();
         private bool isValidTimeInput = true;
+        public ObservableCollection<int> HourOptions { get; set; }
+        public ObservableCollection<int> MinuteOptions { get; set; }
+
+
         public Lesson Lesson
         {
             get { return lesson; }
@@ -19,16 +27,25 @@ namespace SchoolSchedule.Views
             {
                 lesson = value;
                 OnPropertyChanged();
+
             }
         }
 
         public LessonForm()
         {
             InitializeComponent();
+         
             Lesson = new Lesson
             {
-                Subject = new Subject()
+                Subject = new Subject(),
+                StartTimeHour = 0, // Default to "00"
+                StartTimeMinute = 0, // Default to "00"
+                EndTimeHour = 0, // Default to "00"
+                EndTimeMinute = 0 // Default to "00"
             };
+            HourOptions = new ObservableCollection<int>(Enumerable.Range(0, 24)); // 0-23 hours
+            MinuteOptions = new ObservableCollection<int>(Enumerable.Range(0, 60).Where(x => x % 5 == 0));
+
             this.DataContext = this;
         }
 
@@ -49,19 +66,9 @@ namespace SchoolSchedule.Views
             this.Close();
         }
 
-        private void Submit_Click(object sender, RoutedEventArgs e)
+        private void OpenBothDropDowns()
         {
-            if (!string.IsNullOrEmpty(Lesson.Subject.SubjectName) &&
-                Lesson.StartTime.HasValue &&
-                Lesson.EndTime.HasValue)
-            {
-                this.DialogResult = true;
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Please fill in all details.");
-            }
+  
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
@@ -91,71 +98,94 @@ namespace SchoolSchedule.Views
             }
         }
 
-        private TimeSpan ConvertToTimeSpan(string input)
+        // This method will update the Lesson StartTime and EndTime based on ComboBox selection
+        private void Submit_Click(object sender, RoutedEventArgs e)
         {
-            if (int.TryParse(input, out int hour))
-            {
-                return new TimeSpan(hour, 0, 0);
-            }
 
-            if (TimeSpan.TryParse(input, out TimeSpan time))
-            {
-                return time;
-            }
 
-            throw new FormatException("Invalid time format");
+            // Ensure StartTime and EndTime are set correctly from the ComboBox values
+            if (Lesson.StartTimeHour.HasValue && Lesson.StartTimeMinute.HasValue &&
+                Lesson.EndTimeHour.HasValue && Lesson.EndTimeMinute.HasValue &&
+                !string.IsNullOrEmpty(Lesson.Subject.SubjectName))
+            {
+                this.DialogResult = true;
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Please fill in all details.");
+            }
         }
+
+        private void TimeComboBox_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+
+            try
+            {
+                // Get the selected hour and minute values
+                string startHourString = StartHoursComboBox.SelectedItem as string;
+                string startMinuteString = StartMinuteComboBox.SelectedItem as string;
+                string endHourString = EndHourComboBox.SelectedItem as string;
+                string endMinuteString = EndMinuteComboBox.SelectedItem as string;
+
+                // Ensure no field is empty
+                if (!string.IsNullOrEmpty(startHourString) && !string.IsNullOrEmpty(startMinuteString) &&
+                    !string.IsNullOrEmpty(endHourString) && !string.IsNullOrEmpty(endMinuteString))
+                {
+                    // Convert them to integers and then to TimeSpan
+                    int startHour = int.Parse(startHourString);
+                    int startMinute = int.Parse(startMinuteString);
+                    int endHour = int.Parse(endHourString);
+                    int endMinute = int.Parse(endMinuteString);
+
+                    // Assign the values to the lesson object
+                    Lesson.StartTimeHour = startHour;
+                    Lesson.StartTimeMinute = startMinute;
+                    Lesson.EndTimeHour = endHour;
+                    Lesson.EndTimeMinute = endMinute;
+                    Lesson.StartTime = new TimeSpan(startHour, startMinute, 0);
+                    Lesson.EndTime = new TimeSpan(endHour, endMinute, 0);
+                }
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Please enter valid hours and minutes.");
+            }
+        }
+
+
 
         private void TimeTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (!isValidTimeInput)
-            {
-                isValidTimeInput = true; // Reset the flag
-                return; // Skip further processing if the previous input was invalid
-            }
+            // This is now unnecessary, as we are using ComboBox for time selection
 
-            if (sender is TextBox textBox)
-            {
-                try
-                {
-                    TimeSpan time = ConvertToTimeSpan(textBox.Text);
-
-                    if (time < TimeSpan.FromHours(0) || time >= TimeSpan.FromHours(24))
-                    {
-                        throw new ArgumentOutOfRangeException("The time must be between 00:00 and 23:59.");
-                    }
-
-                    textBox.Text = time.ToString(@"hh\:mm");
-
-                    if (textBox.Name == "StartTimeTextBox")
-                    {
-                        Lesson.StartTime = time;
-                    }
-                    else if (textBox.Name == "EndTimeTextBox")
-                    {
-                        Lesson.EndTime = time;
-                    }
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Please enter a valid time in HH:mm format.");
-                    isValidTimeInput = false;
-                    textBox.Focus();
-                }
-                catch (ArgumentOutOfRangeException)
-                {
-                    MessageBox.Show("Please enter a valid time between 00:00 and 23:59.");
-                    isValidTimeInput = false;
-                    textBox.Focus();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"An unexpected error occurred: {ex.Message}");
-                    isValidTimeInput = false;
-                    textBox.Focus();
-                }
-            }
         }
 
+        private void EndMinuteComboBox_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+        
+            EndHourComboBox.IsDropDownOpen = true;
+            EndMinuteComboBox.IsDropDownOpen = true;
+
+        }
+
+        private void EndHourComboBox_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            EndHourComboBox.IsDropDownOpen = true;
+            EndMinuteComboBox.IsDropDownOpen = true;
+        }
+
+        private void StartMinuteComboBox_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            StartHoursComboBox.IsDropDownOpen = true;
+            StartMinuteComboBox.IsDropDownOpen = true;
+        }
+
+        private void StartHoursComboBox_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            StartHoursComboBox.IsDropDownOpen = true;
+            StartMinuteComboBox.IsDropDownOpen = true;
+
+        }
     }
 }

@@ -66,44 +66,50 @@ namespace SchoolSchedule.ModelsManager
                     continue;
                 }
 
-
-
-
-
-                if (lessonToCheck.StartTime <= existingLesson.StartTime && lessonToCheck.EndTime >= existingLesson.StartTime && lessonToCheck.EndTime <= existingLesson.EndTime)
+                if (lessonToCheck.StartTimeHour * 60 + lessonToCheck.StartTimeMinute <= existingLesson.StartTimeHour * 60 + existingLesson.StartTimeMinute &&
+                    lessonToCheck.EndTimeHour * 60 + lessonToCheck.EndTimeMinute >= existingLesson.StartTimeHour * 60 + existingLesson.StartTimeMinute &&
+                    lessonToCheck.EndTimeHour * 60 + lessonToCheck.EndTimeMinute <= existingLesson.EndTimeHour * 60 + existingLesson.EndTimeMinute)
                 {
                     return false;
                 }
-                if (lessonToCheck.StartTime >= existingLesson.StartTime && lessonToCheck.StartTime <= existingLesson.EndTime)
-                {
 
-                    return false;
-                }
-                if (lessonToCheck.StartTime >= lessonToCheck.EndTime && lessonToCheck.EndTime <= existingLesson.EndTime)
+                if (lessonToCheck.StartTimeHour * 60 + lessonToCheck.StartTimeMinute >= existingLesson.StartTimeHour * 60 + existingLesson.StartTimeMinute &&
+                    lessonToCheck.StartTimeHour * 60 + lessonToCheck.StartTimeMinute <= existingLesson.EndTimeHour * 60 + existingLesson.EndTimeMinute)
                 {
-
-                    return false;
-                }
-                if (lessonToCheck.StartTime > TimeSpan.FromHours(12) && existingLesson.EndTime < TimeSpan.FromHours(12) && lessonToCheck.EndTime <= existingLesson.StartTime && lessonToCheck.EndTime <= existingLesson.EndTime)
-                {
-
-                    return false;
-                }
-                if (lessonToCheck.StartTime > TimeSpan.FromHours(12) && lessonToCheck.EndTime >= existingLesson.EndTime && lessonToCheck.EndTime < TimeSpan.FromHours(12))
-                {
-
-                    return false;
-                }
-                if (existingLesson.EndTime <= lessonToCheck.EndTime && lessonToCheck.StartTime <= existingLesson.EndTime)
-                {
-
                     return false;
                 }
 
+                if (lessonToCheck.StartTimeHour * 60 + lessonToCheck.StartTimeMinute >= lessonToCheck.EndTimeHour * 60 + lessonToCheck.EndTimeMinute &&
+                    lessonToCheck.EndTimeHour * 60 + lessonToCheck.EndTimeMinute <= existingLesson.EndTimeHour * 60 + existingLesson.EndTimeMinute)
+                {
+                    return false;
+                }
+
+                if (lessonToCheck.StartTimeHour * 60 + lessonToCheck.StartTimeMinute > 12 * 60 &&
+                    existingLesson.EndTimeHour * 60 + existingLesson.EndTimeMinute < 12 * 60 &&
+                    lessonToCheck.EndTimeHour * 60 + lessonToCheck.EndTimeMinute <= existingLesson.StartTimeHour * 60 + existingLesson.StartTimeMinute &&
+                    lessonToCheck.EndTimeHour * 60 + lessonToCheck.EndTimeMinute <= existingLesson.EndTimeHour * 60 + existingLesson.EndTimeMinute)
+                {
+                    return false;
+                }
+
+                if (lessonToCheck.StartTimeHour * 60 + lessonToCheck.StartTimeMinute > 12 * 60 &&
+                    lessonToCheck.EndTimeHour * 60 + lessonToCheck.EndTimeMinute >= existingLesson.EndTimeHour * 60 + existingLesson.EndTimeMinute &&
+                    lessonToCheck.EndTimeHour * 60 + lessonToCheck.EndTimeMinute < 12 * 60)
+                {
+                    return false;
+                }
+
+                if (existingLesson.EndTimeHour * 60 + existingLesson.EndTimeMinute <= lessonToCheck.EndTimeHour * 60 + lessonToCheck.EndTimeMinute &&
+                    lessonToCheck.StartTimeHour * 60 + lessonToCheck.StartTimeMinute <= existingLesson.EndTimeHour * 60 + existingLesson.EndTimeMinute)
+                {
+                    return false;
+                }
             }
 
             return true;
         }
+
 
     }
 

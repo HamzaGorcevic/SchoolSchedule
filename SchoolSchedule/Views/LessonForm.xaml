@@ -1,70 +1,92 @@
 ﻿<Window x:Class="SchoolSchedule.Views.LessonForm"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-        mc:Ignorable="d" 
-        d:DesignHeight="400" d:DesignWidth="385"
-        Width="385" Height="300" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Lesson Form" Height="700" Width="800"
+        >
 
     <Window.Resources>
-        <Style TargetType="TextBlock">
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="FontWeight" Value="Bold" />
-            <Setter Property="Margin" Value="5" />
-            <Setter Property="Foreground" Value="White"/>
-        </Style>
 
-        <Style TargetType="TextBox">
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="Margin" Value="5" />
-            <Setter Property="Padding" Value="5" />
-            <Setter Property="BorderBrush" Value="White" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="Width" Value="200" />
-        </Style>
-
+        <!-- Button Style for Rounded Corners -->
         <Style TargetType="Button">
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Margin" Value="20 10 20 10" />
-            <Setter Property="Padding" Value="10,5" />
-            <Setter Property="Background" Value="DeepSkyBlue" />
-            <Setter Property="BorderBrush" Value="White" />
-            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+
+        <!-- Style for ComboBox (Time Picker) -->
+        <Style TargetType="ComboBox" x:Key="TimeComboBoxStyle">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Background" Value="#F0F0F0" />
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="Margin" Value="0,10,0,10" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
     </Window.Resources>
 
-    <StackPanel Background="Gray">
-        <TextBlock FontSize="24" Text="Subject Form" HorizontalAlignment="Center"/>
-        <DockPanel LastChildFill="True"/>
+    <Grid>
+        <!-- Background Image -->
+        <Image Source="subject_background.png" Stretch="UniformToFill" />
+        <!-- Semi-transparent overlay -->
+        <Border Background="#80000000" />
 
-        <Grid Margin="0 15 0 25">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+        <!-- Content -->
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Border CornerRadius="15" Background="White" Padding="30" Width="400">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Subject Form" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#9bd6e4" />
+                    <TextBlock Text="Fill in the details below" FontSize="14" HorizontalAlignment="Center" Margin="0,10" />
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+                    <!-- Form Fields -->
 
-            <TextBlock Text="Subject:" Grid.Row="0" Grid.Column="0" />
-            <TextBox Text="{Binding Lesson.Subject.SubjectName, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" />
+                    <StackPanel Margin="0,20,0,0">
+                        <TextBlock Text="Subject" FontSize="14" FontWeight="Bold" Margin="0,0,0,5" />
+                        <TextBox Text="{Binding Lesson.Subject.SubjectName, Mode=TwoWay}" Width="300" Height="40" Margin="0,0,0,10" />
 
-            <TextBlock Text="Starts:" Grid.Row="2" Grid.Column="0" />
-            <TextBox x:Name="StartTimeTextBox" Text="{Binding Lesson.StartTime, Mode=TwoWay, StringFormat=hh\\:mm}" Grid.Row="2" Grid.Column="1" LostFocus="TimeTextBox_LostFocus"/>
+                        <!-- Start Time Picker -->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                        <TextBlock Text="Starts:"  FontSize="14" FontWeight="Bold" Margin="0,15,35,5" />
+                            <ComboBox x:Name="StartHoursComboBox" Style="{StaticResource TimeComboBoxStyle}"
+                                      SelectedItem="{Binding Lesson.StartTimeHour, Mode=TwoWay}"
+                                      ItemsSource="{Binding HourOptions}" SelectionChanged="TimeComboBox_SelectionChanged" ItemStringFormat="D2"/>
+                            <TextBlock Text=":"  FontSize="20" VerticalAlignment="Center" Margin="5,0" />
+                            <ComboBox Name="StartMinuteComboBox" Style="{StaticResource TimeComboBoxStyle}"
+                                      SelectedItem="{Binding Lesson.StartTimeMinute, Mode=TwoWay}"
+                                      ItemsSource="{Binding MinuteOptions}" SelectionChanged="TimeComboBox_SelectionChanged" ItemStringFormat="D2"/>
+                        </StackPanel>
 
-            <TextBlock Text="Ends:" Grid.Row="3" Grid.Column="0" />
-            <TextBox x:Name="EndTimeTextBox" Text="{Binding Lesson.EndTime, Mode=TwoWay, StringFormat=hh\\:mm}" Grid.Row="3" Grid.Column="1" LostFocus="TimeTextBox_LostFocus"/>
+                        <!-- End Time Picker -->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >
+                            <TextBlock Text="Starts:"  FontSize="14" FontWeight="Bold" Margin="0,15,35,5" />
 
-            <DockPanel Grid.Row="4" Grid.ColumnSpan="2" Margin="10,0,0,0">
-                <Button Content="Submit" Click="Submit_Click" Width="278"/>
-            </DockPanel>
+                            <ComboBox Name="EndHourComboBox"  Style="{StaticResource TimeComboBoxStyle}"
+                                      SelectedItem="{Binding Lesson.EndTimeHour, Mode=TwoWay }"
+                                      ItemsSource="{Binding HourOptions}" SelectionChanged="TimeComboBox_SelectionChanged"  ItemStringFormat="D2"/>
+                            <TextBlock Text=":"  FontSize="20" VerticalAlignment="Center" Margin="5,0" />
+                            <ComboBox x:Name="EndMinuteComboBox"  Style="{StaticResource TimeComboBoxStyle}"
+                                      SelectedItem="{Binding Lesson.EndTimeMinute, Mode=TwoWay}"
+                                      ItemsSource="{Binding MinuteOptions}"  SelectionChanged="TimeComboBox_SelectionChanged" ItemStringFormat="D2" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <Button Content="Submit" Width="300" Height="40" Background="#9bd6e4" Foreground="White" BorderBrush="Transparent" Click="Submit_Click" />
+                </StackPanel>
+            </Border>
         </Grid>
-    </StackPanel>
+    </Grid>
 </Window>

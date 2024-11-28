@@ -11,7 +11,7 @@ namespace SchoolSchedule
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class Lesson
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,23 +19,31 @@ namespace SchoolSchedule
         {
             this.Attendences = new HashSet<Attendence>();
         }
-
+    
         public int ID { get; set; }
         public Nullable<int> SubjectID { get; set; }
         public string DayOfWeek { get; set; }
         public Nullable<System.TimeSpan> StartTime { get; set; }
         public Nullable<System.TimeSpan> EndTime { get; set; }
         public Nullable<int> ScheduleId { get; set; }
-
+        public Nullable<int> StartTimeHour { get; set; }
+        public Nullable<int> StartTimeMinute { get; set; }
+        public Nullable<int> EndTimeHour { get; set; }
+        public Nullable<int> EndTimeMinute { get; set; }
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Attendence> Attendences { get; set; }
         public virtual Subject Subject { get; set; }
         public virtual Schedule Schedule { get; set; }
 
-
         public override string ToString()
         {
-            return $"{Subject.SubjectName}\n {StartTime?.ToString(@"hh\:mm")}-{EndTime?.ToString(@"hh\:mm")}";
+            // Use the hours and minutes from the properties instead of formatting DateTime
+            string startTimeFormatted = $"{StartTimeHour:D2}:{StartTimeMinute:D2}";
+            string endTimeFormatted = $"{EndTimeHour:D2}:{EndTimeMinute:D2}";
+
+            return $"{Subject.SubjectName}\n{startTimeFormatted}-{endTimeFormatted}";
         }
+
     }
 }

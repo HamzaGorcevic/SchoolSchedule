@@ -26,6 +26,10 @@
     <Property Name="StartTime" Type="time" Precision="7" />
     <Property Name="EndTime" Type="time" Precision="7" />
     <Property Name="ScheduleId" Type="int" />
+    <Property Name="StartTimeHour" Type="int" />
+    <Property Name="StartTimeMinute" Type="int" />
+    <Property Name="EndTimeHour" Type="int" />
+    <Property Name="EndTimeMinute" Type="int" />
   </EntityType>
   <EntityType Name="Schedule">
     <Key>

@@ -1,67 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Media.Imaging;
-using System.Windows.Media;
-using System.Windows;
 using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace SchoolSchedule.ModelsManager
 {
     public class UiManager
     {
-
         private MainWindow mainWindow;
-
         private int counter;
-        public UiManager(MainWindow window, int counter=0)
+
+        public UiManager(MainWindow window, int counter = 0)
         {
             mainWindow = window;
             this.counter = counter;
         }
 
-
-
-        public void GenerateUi(string day, Dictionary<string, ObservableCollection<Lesson>> scheduleDayOfWeeks, bool isLoggedIn,int teacherId, int counter=0)
+        public void GenerateUi(string day, Dictionary<string, ObservableCollection<Lesson>> scheduleDayOfWeeks, bool isLoggedIn, int teacherId, int counter = 0)
         {
-
-
-
             this.counter = counter;
+
             Border borderContainer = new Border
             {
-                Padding = new Thickness(10),
-                CornerRadius = new CornerRadius(20),
-                Margin = new Thickness(4),
-                Height = 435,
-
+                Padding = new Thickness(6),
+                CornerRadius = new CornerRadius(15),
+                Margin = new Thickness(2),
+                Height = 350,
+                Width = 240
             };
             Grid.SetColumn(borderContainer, this.counter);
             Grid.SetRow(borderContainer, 1);
 
-
             StackPanel spDayOfWeek = new StackPanel();
             Border borderDayOfWeek = new Border
             {
-                Margin = new Thickness(0, 0, 0, 10),
+                Margin = new Thickness(0, 0, 0, 6),
                 Background = Brushes.LightBlue,
-                CornerRadius = new CornerRadius(10),
-                Height = 52
+                CornerRadius = new CornerRadius(8),
+                Height = 40
             };
 
             TextBlock tbDayOfWeek = new TextBlock
             {
                 FontWeight = FontWeights.Bold,
                 VerticalAlignment = VerticalAlignment.Center,
-                FontSize = 20,
+                FontSize = 16,
                 HorizontalAlignment = HorizontalAlignment.Center,
-                Text = day.ToString(),
+                Text = day,
                 Foreground = Brushes.DarkSlateGray,
-
             };
 
             borderDayOfWeek.Child = tbDayOfWeek;
@@ -70,10 +60,10 @@ namespace SchoolSchedule.ModelsManager
             Border borderLessons = new Border
             {
                 VerticalAlignment = VerticalAlignment.Stretch,
-                Height = 350,
+                Height = 280,
                 Background = Brushes.LightBlue,
-                CornerRadius = new CornerRadius(14),
-                Padding = new Thickness(8),
+                CornerRadius = new CornerRadius(12),
+                Padding = new Thickness(6),
             };
 
             ScrollViewer scrollViewer = new ScrollViewer
@@ -92,107 +82,99 @@ namespace SchoolSchedule.ModelsManager
             {
                 Border borderSingleLesson = new Border
                 {
-                    Padding = new Thickness(4),
-                    Margin = new Thickness(0, 0, 0, 10),
-                    CornerRadius = new CornerRadius(10),
-                    Background = Brushes.White
+                    Padding = new Thickness(3),
+                    Margin = new Thickness(0, 0, 0, 6),
+                    CornerRadius = new CornerRadius(8),
+                    Background = Brushes.White,
                 };
-
-
 
                 StackPanel spSingleLessonAndEdit = new StackPanel
                 {
                     Orientation = Orientation.Vertical,
+                };
 
+                // Display Teacher's Name
+                TextBlock tbTeacherName = new TextBlock
+                {
+                    FontWeight = FontWeights.Light,
+                    FontSize = 13,
+                    Foreground = Brushes.Gray,
+                    Text = "Prof.  " + lesson.Subject?.Teacher?.FirstName ?? "Unknown Teacher",  // Ensure null safety
+                    Visibility =  lesson.Subject.TeacherID != teacherId ? Visibility.Visible : Visibility.Collapsed,
 
                 };
 
+                // Lesson details
                 TextBlock tbSingleLesson = new TextBlock
                 {
                     FontWeight = FontWeights.Medium,
-                    FontSize = 16,
-                    Foreground = Brushes.DarkTurquoise,
+                    FontSize = 14,
+                    Foreground = Brushes.DarkSlateGray,
                     TextWrapping = TextWrapping.NoWrap,
-                    Text = lesson.ToString()
+                    Text = lesson.ToString(),
                 };
 
-
-                // actions
+                // Actions (edit, delete, attendance)
                 DockPanel spActions = new DockPanel
                 {
                     Visibility = isLoggedIn && lesson.Subject.TeacherID == teacherId ? Visibility.Visible : Visibility.Collapsed,
                     HorizontalAlignment = HorizontalAlignment.Stretch,
-
                 };
 
                 Button attendenceSingleLesson = new Button
                 {
-                    Width = 30,
-                    Height = 31,
+                    Width = 24,
+                    Height = 24,
                     Background = Brushes.Transparent,
                     HorizontalAlignment = HorizontalAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Top,
                     Tag = lesson.ID,
                     BorderBrush = Brushes.Transparent,
-
-                };
-
-
-                Image attendenceIcon = new Image
-                {
-                    Source = new BitmapImage(new Uri("C:\\Users\\gorce\\source\\repos\\SchoolSchedule\\SchoolSchedule\\Icons\\attendence.ico")),
-                    Width = 25,
-                    Height = 30
-                };
-
-
-                Image deleteIcon = new Image
-                {
-                    Source = new BitmapImage(new Uri("C:\\Users\\gorce\\source\\repos\\SchoolSchedule\\SchoolSchedule\\Icons\\delete.ico")),
-                    Width = 25,
-                    Height = 30
+                    Content = new Image
+                    {
+                        Source = new BitmapImage(new Uri("C:\\Users\\gorce\\source\\repos\\SchoolSchedule\\SchoolSchedule\\Icons\\attendence.ico")),
+                        Width = 20,
+                        Height = 20
+                    }
                 };
 
                 Button deleteLesson = new Button
                 {
-                    Width = 26,
-                    Height = 31,
+                    Width = 24,
+                    Height = 24,
                     Background = Brushes.Transparent,
                     HorizontalAlignment = HorizontalAlignment.Right,
                     VerticalAlignment = VerticalAlignment.Top,
-                    DataContext = lesson.ID,
-                    BorderBrush = Brushes.Transparent,
                     Tag = lesson.ID,
-                    Content = deleteIcon,
-
+                    BorderBrush = Brushes.Transparent,
+                    Content = new Image
+                    {
+                        Source = new BitmapImage(new Uri("C:\\Users\\gorce\\source\\repos\\SchoolSchedule\\SchoolSchedule\\Icons\\delete.ico")),
+                        Width = 20,
+                        Height = 20
+                    }
                 };
-
-                attendenceSingleLesson.Content = attendenceIcon;
 
                 Button editSingleLesson = new Button
                 {
-                    Width = 26,
-                    Height = 31,
+                    Width = 24,
+                    Height = 24,
                     Background = Brushes.Transparent,
                     HorizontalAlignment = HorizontalAlignment.Left,
                     VerticalAlignment = VerticalAlignment.Top,
-                    DataContext = lesson.ID,
+                    Tag = lesson.ID,
                     BorderBrush = Brushes.Transparent,
-
-                };
-
-                Image editIcon = new Image
-                {
-                    Source = new BitmapImage(new Uri("C:\\Users\\gorce\\source\\repos\\SchoolSchedule\\SchoolSchedule\\Icons\\edit.ico")),
-                    Width = 25,
-                    Height = 30
+                    Content = new Image
+                    {
+                        Source = new BitmapImage(new Uri("C:\\Users\\gorce\\source\\repos\\SchoolSchedule\\SchoolSchedule\\Icons\\edit.ico")),
+                        Width = 20,
+                        Height = 20
+                    }
                 };
 
                 deleteLesson.Click += mainWindow.DeleteLesson_Click;
-                editSingleLesson.Content = editIcon;
                 editSingleLesson.Click += mainWindow.ShowForm_Click;
-                attendenceSingleLesson.Click += mainWindow.AttendenceSingleLesson_Click; ;
-
+                attendenceSingleLesson.Click += mainWindow.AttendenceSingleLesson_Click;
 
                 spActions.Children.Add(editSingleLesson);
                 spActions.Children.Add(attendenceSingleLesson);
@@ -200,26 +182,30 @@ namespace SchoolSchedule.ModelsManager
 
                 spSingleLessonAndEdit.Children.Add(spActions);
                 spSingleLessonAndEdit.Children.Add(tbSingleLesson);
+                spSingleLessonAndEdit.Children.Add(tbTeacherName); // Add teacher name
                 borderSingleLesson.Child = spSingleLessonAndEdit;
                 spLessons.Children.Add(borderSingleLesson);
             }
 
             Border borderBtn = new Border
             {
-                Margin = new Thickness(10),
-                Background = Brushes.DarkTurquoise,
-                CornerRadius = new CornerRadius(14),
+                Margin = new Thickness(6),
+                Background = Brushes.DarkSlateGray,
+                CornerRadius = new CornerRadius(12),
+                Height = 40,
+                Visibility = isLoggedIn ? Visibility.Visible : Visibility.Collapsed,
+                Cursor = Cursors.Hand
             };
             Button btnAdd = new Button
             {
                 Foreground = Brushes.White,
                 FontWeight = FontWeights.Bold,
-                Padding = new Thickness(5),
+                Padding = new Thickness(3),
                 Content = "Add lesson",
-                FontSize = 17,
+                FontSize = 14,
                 BorderBrush = null,
                 HorizontalAlignment = HorizontalAlignment.Center,
-                Background = null,
+                Background = Brushes.DarkSlateGray,
                 Tag = day,
                 Visibility = isLoggedIn ? Visibility.Visible : Visibility.Collapsed,
             };
@@ -234,11 +220,9 @@ namespace SchoolSchedule.ModelsManager
             spDayOfWeek.Children.Add(borderLessons);
 
             borderContainer.Child = spDayOfWeek;
-
             mainWindow.gridSchedule.Children.Add(borderContainer);
-
-
-
         }
+
+
     }
 }
