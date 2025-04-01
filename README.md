@@ -31,7 +31,7 @@ And many more pages for login register and etc
 ## Installation
 
 1. **Clone the repository**
-   git clone https://github.com/yourusername/school-schedule.git
+   git clone https://github.com/HamzaGorcevic/SchoolSchedule.git
 3. **Open the solution in Visual Studio**
    dotnet build
    dotnet run
