@@ -132,13 +132,14 @@ namespace SchoolSchedule
 
         public void ShowForm_Click(object sender, RoutedEventArgs e)
         {
+
             if (sender is Button clickedButton)
             {
                 if (clickedButton.Tag is string dayOfWeek)
                 {
                     PostLesson(dayOfWeek);
                 }
-                else if (clickedButton.DataContext is int lessonId)
+                else if (clickedButton.Tag is int lessonId)
                 {
                     UpdateLesson(lessonId);
                 }

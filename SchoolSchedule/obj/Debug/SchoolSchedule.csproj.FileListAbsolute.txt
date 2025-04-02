@@ -31,3 +31,13 @@ C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\obj\Debug\Views\Naviga
 C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\obj\Debug\Views\AttendenceInfo.baml
 C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\obj\Debug\Views\NavigationWindow.baml
 C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\obj\Debug\SchoolSc.B7D1D8BE.Up2Date
+C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\bin\Debug\BCrypt.Net-Next.dll
+C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\bin\Debug\System.Buffers.dll
+C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\bin\Debug\System.Memory.dll
+C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\bin\Debug\BCrypt.Net-Next.xml
+C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\bin\Debug\System.Buffers.xml
+C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\bin\Debug\System.Memory.xml
+C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml

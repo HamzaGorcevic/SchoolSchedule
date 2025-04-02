@@ -7,7 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Linq;
 namespace SchoolSchedule
 {
     using System;
@@ -25,15 +24,5 @@ namespace SchoolSchedule
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Lesson> Lessons { get; set; }
-        public ICollection<Lesson> GetWeek(int teacherId)
-        {
-            
-                return this.Lessons;
-            
-/*            return Lessons.Where((lesson) => lesson.Subject.TeacherID == teacherId).ToList();
-*/
-        }
     }
-
-   
 }

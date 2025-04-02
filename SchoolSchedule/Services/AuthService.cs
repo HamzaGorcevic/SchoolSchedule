@@ -1,5 +1,6 @@
 ﻿using System.Linq;
-
+using System.Runtime.Remoting.Contexts;
+using BCrypt.Net;
 namespace SchoolSchedule.Services
 {
     public class AuthService
@@ -34,7 +35,7 @@ namespace SchoolSchedule.Services
             using (var context = new school_scheduleEntities())
             {
 
-                var teacher = context.Teachers.FirstOrDefault((user) => user.FirstName == username && user.password == password);
+                var teacher = context.Teachers.FirstOrDefault((user) => user.FirstName == username && user.password == HashPassword(password));
                 if(teacher != null)
                 {
                     TeacherId = teacher.ID;
@@ -49,6 +50,28 @@ namespace SchoolSchedule.Services
                 }
                 return IsLoggedIn;
             }
+        }
+        public bool Register(string firstName,string lastName, string password) {
+            
+            using (var context = new school_scheduleEntities())
+            {
+                var teacher = context.Teachers.FirstOrDefault((t) => t.FirstName == firstName && t.LastName == lastName);
+                if (teacher != null)
+                {
+                    return false;
+                }
+                var newTeacher = new Teacher();
+                newTeacher.FirstName = firstName;
+                newTeacher.LastName = lastName;
+                newTeacher.password = HashPassword(password);
+
+            }
+
+            return true;
+        }
+        public string HashPassword(string password)
+        {
+            return BCrypt.Net.BCrypt.HashPassword(password);
         }
 
         public void Logout()

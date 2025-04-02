@@ -68,6 +68,7 @@
           <Property Name="FirstName" Type="varchar" MaxLength="50" />
           <Property Name="LastName" Type="varchar" MaxLength="50" />
           <Property Name="password" Type="varchar" MaxLength="255" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <Association Name="FK__Attendenc__lesso__4D94879B">
           <End Role="Lesson" Type="Self.Lesson" Multiplicity="0..1" />
@@ -235,6 +236,7 @@
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Subjects" Relationship="Self.FK__Subject__Teacher__3B75D760" FromRole="Teacher" ToRole="Subject" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK__Attendenc__lesso__4D94879B">
           <End Role="Lesson" Type="Self.Lesson" Multiplicity="0..1" />
@@ -395,6 +397,7 @@
           <EntitySetMapping Name="Teachers">
             <EntityTypeMapping TypeName="school_scheduleModel.Teacher">
               <MappingFragment StoreEntitySet="Teacher">
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
