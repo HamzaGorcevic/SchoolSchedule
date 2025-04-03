@@ -35,5 +35,13 @@ namespace SchoolSchedule
         public virtual ICollection<Attendence> Attendences { get; set; }
         public virtual Subject Subject { get; set; }
         public virtual Schedule Schedule { get; set; }
+        public override string ToString()
+        {
+            string startTime = $"{StartTimeHour:D2}:{StartTimeMinute:D2}";
+            string endTime = $"{EndTimeHour:D2}:{EndTimeMinute:D2}";
+            return $"{Subject.SubjectName}\n {startTime}-{endTime}";
+        }
+
+
     }
 }

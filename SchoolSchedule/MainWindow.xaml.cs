@@ -28,7 +28,6 @@ namespace SchoolSchedule
 
         int counter = 0;
 
-
         public int TeacherId
         {
             get { return teacherId; }
@@ -42,7 +41,7 @@ namespace SchoolSchedule
 
         private ScheduleManager scheduleManager;
         private UiManager uiManager;
-   
+
 
         private school_scheduleEntities context = new school_scheduleEntities();
 
@@ -55,7 +54,7 @@ namespace SchoolSchedule
             scheduleManager.LoadScheduleFromDatabase();
             schedule = scheduleManager.Schedule;
             uiManager = new UiManager(this);
-
+            AuthService.Instance.OnLoginStatsChanged += UpdateLoginStatus;
 
         }
 
@@ -64,8 +63,7 @@ namespace SchoolSchedule
             counter = 2;
             gridSchedule.Children.Clear();
 
-            uiManager.GenerateUi(choosenDay,scheduleManager.ScheduleDayOfWeeks,isLoggedIn,teacherId,counter);
-
+            uiManager.GenerateUi(choosenDay, scheduleManager.ScheduleDayOfWeeks, isLoggedIn, teacherId, counter);
         }
         public void ShowWeek()
         {
@@ -81,7 +79,9 @@ namespace SchoolSchedule
                     scheduleManager.ScheduleDayOfWeeks[key].Clear();
                 }
 
-                foreach (Lesson lesson in schedule.GetWeek(teacherId))
+                //foreach (Lesson lesson in schedule.GetWeek(teacherId))
+                foreach (Lesson lesson in schedule.Lessons)
+
                 {
                     if (scheduleManager.ScheduleDayOfWeeks.ContainsKey(lesson.DayOfWeek))
                     {
@@ -92,7 +92,7 @@ namespace SchoolSchedule
 
                 foreach (var day in scheduleManager.ScheduleDayOfWeeks.Keys)
                 {
-                    uiManager.GenerateUi(day, scheduleManager.ScheduleDayOfWeeks,  isLoggedIn, teacherId,counter);
+                    uiManager.GenerateUi(day, scheduleManager.ScheduleDayOfWeeks, isLoggedIn, teacherId, counter);
                     counter++;
 
                 }
@@ -105,7 +105,7 @@ namespace SchoolSchedule
         }
 
 
-      
+
 
         public void AttendenceSingleLesson_Click(object sender, RoutedEventArgs e)
         {
@@ -185,7 +185,7 @@ namespace SchoolSchedule
             }
         }
 
-       
+
 
 
 
@@ -235,46 +235,42 @@ namespace SchoolSchedule
                 }
             }
         }
-
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        private void UpdateLoginStatus()
         {
-
             if (AuthService.Instance.IsLoggedIn)
             {
-                IsLoggedIn = false;
-                AuthService.Instance.Logout();
-                TeacherId = 0;
-                btnLogin.Content = "Login";
-            }
-            else
-            {
+                IsLoggedIn = true;
+                teacherId = AuthService.Instance.TeacherId;
                 Image logoutIcon = new Image
                 {
                     Source = new BitmapImage(new Uri("C:\\Users\\gorce\\source\\repos\\SchoolSchedule\\SchoolSchedule\\Icons\\logout.ico")),
                     Width = 20,
                     Height = 20
                 };
-
-
-                LoginForm loginForm = new LoginForm();
-
-                if (loginForm.ShowDialog() == true)
-                {
-                    bool loginSuccess = AuthService.Instance.Login(loginForm.Username, loginForm.Password);
-                    if (loginSuccess)
-                    {
-                        TeacherId = AuthService.Instance.TeacherId;
-
-                        IsLoggedIn = true;
-                        btnLogin.Content = logoutIcon;
-
-                    }
-                    else
-                    {
-                        MessageBox.Show("Login failed. Invalid credentials.");
-                    }
-                }
+                btnLogin.Content = logoutIcon;
             }
+            else
+            {
+                IsLoggedIn = false;
+                btnLogin.Content = "Login";
+
+            }
+        }
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+           
+            if (isLoggedIn == true)
+            {
+                AuthService.Instance.Logout();
+                teacherId = 0;
+                isLoggedIn = false;
+            }
+            else
+            {
+                LoginForm loginForm = new LoginForm();
+                loginForm.Show();
+            }
+
         }
 
 

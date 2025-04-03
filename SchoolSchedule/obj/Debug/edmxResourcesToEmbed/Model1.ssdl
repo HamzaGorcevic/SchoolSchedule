@@ -63,6 +63,7 @@
     <Property Name="FirstName" Type="varchar" MaxLength="50" />
     <Property Name="LastName" Type="varchar" MaxLength="50" />
     <Property Name="password" Type="varchar" MaxLength="255" />
+    <Property Name="Email" Type="nvarchar" MaxLength="255" />
   </EntityType>
   <Association Name="FK__Attendenc__lesso__4D94879B">
     <End Role="Lesson" Type="Self.Lesson" Multiplicity="0..1" />

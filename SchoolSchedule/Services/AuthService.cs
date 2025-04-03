@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Runtime.Remoting.Contexts;
 using BCrypt.Net;
 namespace SchoolSchedule.Services
@@ -10,6 +11,7 @@ namespace SchoolSchedule.Services
         private string currentUser;
         public int TeacherId { get; set; }         
 
+        public event Action OnLoginStatsChanged;
         private AuthService() { }
 
         public static AuthService Instance
@@ -27,30 +29,30 @@ namespace SchoolSchedule.Services
         public bool IsLoggedIn
         {
             get { return isLoggedIn; }
-            private set { isLoggedIn = value; }
+            private set { isLoggedIn = value; OnLoginStatsChanged?.Invoke(); }
         }
 
         public bool Login(string username, string password)
         {
             using (var context = new school_scheduleEntities())
             {
+                var teacher = context.Teachers.FirstOrDefault(user => user.FirstName == username);
 
-                var teacher = context.Teachers.FirstOrDefault((user) => user.FirstName == username && user.password == HashPassword(password));
-                if(teacher != null)
+                if (teacher != null && BCrypt.Net.BCrypt.Verify(password, teacher.password))
                 {
                     TeacherId = teacher.ID;
-
-                    IsLoggedIn = true;
-                }
-                if (IsLoggedIn)
-                {
                     IsLoggedIn = true;
                     currentUser = username;
-
                 }
-                return IsLoggedIn;
+                else
+                {
+                    IsLoggedIn = false;
+                }
             }
+
+            return IsLoggedIn;
         }
+
         public bool Register(string firstName,string lastName, string password) {
             
             using (var context = new school_scheduleEntities())
@@ -60,11 +62,14 @@ namespace SchoolSchedule.Services
                 {
                     return false;
                 }
-                var newTeacher = new Teacher();
-                newTeacher.FirstName = firstName;
-                newTeacher.LastName = lastName;
-                newTeacher.password = HashPassword(password);
-
+                var newTeacher = new Teacher
+                {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    password = HashPassword(password)
+                };
+                context.Teachers.Add(newTeacher);
+                context.SaveChanges();
             }
 
             return true;

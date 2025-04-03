@@ -65,6 +65,7 @@
     <EntitySetMapping Name="Teachers">
       <EntityTypeMapping TypeName="school_scheduleModel.Teacher">
         <MappingFragment StoreEntitySet="Teacher">
+          <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />

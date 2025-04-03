@@ -46,7 +46,9 @@ namespace SchoolSchedule.ModelsManager
                 ScheduleDayOfWeeks[key].Clear();
             }
 
-            foreach (Lesson lesson in Schedule.GetWeek(teacherId))
+            //foreach (Lesson lesson in Schedule.GetWeek(teacherId))
+            foreach (Lesson lesson in Schedule.Lessons)
+
             {
                 if (ScheduleDayOfWeeks.ContainsKey(lesson.DayOfWeek))
                 {

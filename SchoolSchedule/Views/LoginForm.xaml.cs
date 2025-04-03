@@ -33,15 +33,28 @@ namespace SchoolSchedule.Views
             password = PasswordBox.Password;
 
             bool loggedIn = AuthService.Instance.Login(username, password);
+            
             if (loggedIn)
             {
+                if(this.Owner != null)
+                {
                 this.DialogResult = true;
+
+                }
                 this.Close();
             }
             else
             {
                 MessageBox.Show("Invalid username or password.");
             }
+        }
+
+        private void RegisterButton_Click(object sender, RoutedEventArgs e)
+        {
+            RegisterForm registerForm = new RegisterForm();
+            registerForm.Show();
+            this.Close();
+
         }
     }
 }

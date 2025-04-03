@@ -41,3 +41,5 @@ C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\bin\Debug\System.Buffe
 C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\bin\Debug\System.Memory.xml
 C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\bin\Debug\System.Numerics.Vectors.xml
 C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\obj\Debug\Views\RegisterForm.g.cs
+C:\Users\gorce\source\repos\SchoolSchedule\SchoolSchedule\obj\Debug\Views\RegisterForm.baml
